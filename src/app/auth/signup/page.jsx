@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Card, Button, Link, TextField, Label, InputGroup, Input } from "@heroui/react";
+import { Description, Radio, RadioGroup } from "@heroui/react";
 import { Eye, EyeSlash, Person, At, ShieldKeyhole } from "@gravity-ui/icons";
 import { signUp } from "@/lib/auth-client";
 
@@ -10,6 +11,7 @@ export default function SignupPage() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [role, setRole] = useState("seeker");
 
     // UI States
     const [isVisible, setIsVisible] = useState(false);
@@ -31,6 +33,7 @@ export default function SignupPage() {
                 email,
                 password,
                 name,
+                role,
                 callbackURL: "/",
             });
 
@@ -113,6 +116,29 @@ export default function SignupPage() {
                             </button>
                         </InputGroup>
                     </TextField>
+
+                    {/* User Role Selection */}
+                    <div className="flex flex-col gap-4">
+                        <Label>Subscription Plan</Label>
+                        <RadioGroup defaultValue="seeker" name="role" orientation="horizontal" onChange={(value) => setRole(value)}>
+                            <Radio value="seeker">
+                                <Radio.Content>
+                                    <Radio.Control>
+                                        <Radio.Indicator />
+                                    </Radio.Control>
+                                    Job Seeker
+                                </Radio.Content>
+                            </Radio>
+                            <Radio value="recruiter">
+                                <Radio.Content>
+                                    <Radio.Control>
+                                        <Radio.Indicator />
+                                    </Radio.Control>
+                                    Recruiter
+                                </Radio.Content>
+                            </Radio>
+                        </RadioGroup>
+                    </div>
 
                     {/* Dynamic Status Badges */}
                     {error && (
